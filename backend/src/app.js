@@ -3,6 +3,10 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const helmet = require("helmet");
 
+const authRoutes = require("./routes/auth.routes");
+
+const errorHandler = require("./middleware/error.middleware");
+
 const app = express();
 
 app.use(helmet());
@@ -24,5 +28,9 @@ app.get("/api/health", (req, res) => {
     message: "API is healthy",
   });
 });
+
+app.use("/api/auth", authRoutes);
+
+app.use(errorHandler);
 
 module.exports = app;
